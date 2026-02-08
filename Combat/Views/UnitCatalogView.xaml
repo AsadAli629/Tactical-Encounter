@@ -1,0 +1,118 @@
+﻿<Page x:Class="Combat.Views.UnitCatalogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{StaticResource BackgroundDark}">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT PANEL -->
+        <DockPanel Grid.Column="0" LastChildFill="True" Background="{StaticResource SurfaceDark}" Margin="0,0,10,0">
+
+            <!-- Search Bar on Top -->
+            <TextBox Name="txtSearch"
+                     DockPanel.Dock="Top"
+                     Height="80"
+                     Margin="10"
+                     Padding="10"
+                     Background="{StaticResource BackgroundDark}"
+                     Foreground="{StaticResource TextPrimaryDark}"
+                     FontSize="18"
+                      />
+
+            <!-- Add New Unit Button on Bottom -->
+            <Button Name="btnAddNewUnit"
+                    DockPanel.Dock="Bottom"
+                    Height="80"
+                    Margin="10"
+                    Background="{StaticResource PrimaryAccent}"
+                    Foreground="White"
+                    FontSize="18"
+                    Content="Add New Unit"
+                    Click="BtnAddNewUnit_Click" />
+
+            <!-- ListView filling the rest -->
+            <ListView Name="lvUnits"
+                      Margin="10"
+                      Background="{StaticResource SurfaceDark}"
+                      Foreground="{StaticResource TextPrimaryDark}"
+                      FontSize="16"
+                      SelectionChanged="LvUnits_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </DockPanel>
+
+        <!-- RIGHT PANEL -->
+        <!-- RIGHT PANEL -->
+        <ScrollViewer Grid.Column="1" Background="{StaticResource SurfaceDark}">
+            <StackPanel Margin="10">
+
+                <!-- Basic Info -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Name:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <TextBox Name="txtName" Width="250" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="20,0,0,0">
+                        <TextBlock Text="Category:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <ComboBox Name="cbCategory" Width="200" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16">
+                            <ComboBoxItem>Humanoid</ComboBoxItem>
+                            <ComboBoxItem>Construct</ComboBoxItem>
+                            <ComboBoxItem>Cybernetic</ComboBoxItem>
+                            <ComboBoxItem>Beast</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="20,0,0,0">
+                        <TextBlock Text="CR:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <TextBox Name="txtCR" Width="60" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Attacks Section -->
+                <Grid Margin="0,10,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Primary Attacks -->
+                    <StackPanel Grid.Column="0" Background="{StaticResource SurfaceDark}" Margin="0,0,10,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,5">
+                            <TextBlock Text="Primary Attacks" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryAccent}" VerticalAlignment="Center"/>
+                            <Button Content="+" Width="30" Height="30" Margin="10,0,0,0" Background="{StaticResource PrimaryAccent}" Foreground="White" Click="BtnAddPrimaryAttack_Click"/>
+                        </StackPanel>
+                        <StackPanel Name="spPrimaryAttacks"/>
+                    </StackPanel>
+
+                    <!-- Bonus Attacks -->
+                    <StackPanel Grid.Column="1" Background="{StaticResource SurfaceDark}" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,5">
+                            <TextBlock Text="Bonus Attacks" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryAccent}" VerticalAlignment="Center"/>
+                            <Button Content="+" Width="30" Height="30" Margin="10,0,0,0" Background="{StaticResource PrimaryAccent}" Foreground="White" Click="BtnAddBonusAttack_Click"/>
+                        </StackPanel>
+                        <StackPanel Name="spBonusAttacks"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Bottom Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                    <Button Name="btnSave" Content="Save Unit" Click="BtnSave_Click" Width="100" Background="{StaticResource PrimaryAccent}" Foreground="White"/>
+                    <Button Name="btnDelete" Content="Delete Unit" Click="BtnDelete_Click" Width="100" Background="{StaticResource DeleteRed}" Foreground="White" IsEnabled="False"/>
+                    <Button Name="btnClear" Content="Clear" Click="BtnClear_Click" Width="100"/>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
