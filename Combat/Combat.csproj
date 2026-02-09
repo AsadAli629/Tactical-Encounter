@@ -6,10 +6,30 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+
+    <!-- === These lines make it a single .exe file === -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <!-- Optional but recommended: makes the file noticeably smaller -->
+
+    <!-- Optional: compresses the file even more (smaller download size) -->
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+
+    <!-- Optional: if you want to add an icon to the .exe -->
+    <!-- <ApplicationIcon>icon.ico</ApplicationIcon> -->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.21" />
+  </ItemGroup>
+
+  <!-- Very important if you want Units.db to be included automatically -->
+  <ItemGroup>
+    <None Update="Units.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

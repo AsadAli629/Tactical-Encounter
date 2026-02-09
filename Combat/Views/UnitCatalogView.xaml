@@ -6,27 +6,52 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <!-- LEFT PANEL -->
         <DockPanel Grid.Column="0" LastChildFill="True" Background="{StaticResource SurfaceDark}" Margin="0,0,10,0">
 
             <!-- Search Bar on Top -->
-            <TextBox Name="txtSearch"
-                     DockPanel.Dock="Top"
-                     Height="80"
-                     Margin="10"
-                     Padding="10"
-                     Background="{StaticResource BackgroundDark}"
-                     Foreground="{StaticResource TextPrimaryDark}"
-                     FontSize="18"
-                      />
+            <Grid DockPanel.Dock="Top" Height="40" Margin="10">
+                <TextBox Name="txtSearch"
+             Background="{StaticResource BackgroundDark}"
+             Foreground="{StaticResource TextPrimaryDark}"
+             FontSize="18"
+             Padding="10"
+             VerticalContentAlignment="Center"/>
+
+                <!-- Watermark Text -->
+                <TextBlock Text="Search units..."
+               Foreground="{StaticResource TextSecondaryDark}"
+               FontSize="18"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Margin="10,0,0,0"
+               IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFocused, ElementName=txtSearch}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
             <!-- Add New Unit Button on Bottom -->
             <Button Name="btnAddNewUnit"
                     DockPanel.Dock="Bottom"
-                    Height="80"
+                    Height="40"
                     Margin="10"
                     Background="{StaticResource PrimaryAccent}"
                     Foreground="White"
@@ -51,66 +76,82 @@
         </DockPanel>
 
         <!-- RIGHT PANEL -->
-        <!-- RIGHT PANEL -->
         <ScrollViewer Grid.Column="1" Background="{StaticResource SurfaceDark}">
-            <StackPanel Margin="10">
+            <StackPanel Margin="20" VerticalAlignment="Top" >
 
-                <!-- Basic Info -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <StackPanel>
-                        <TextBlock Text="Name:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
-                        <TextBox Name="txtName" Width="250" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16"/>
+                <!-- Basic Info: Name, Category, CR -->
+                <StackPanel Orientation="Vertical" Margin="0,0,0,20" >
+                    <!-- Name -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Name:" HorizontalAlignment="Left" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <TextBox Name="txtName" HorizontalAlignment="Stretch"  Background="{StaticResource BackgroundDark}" 
+                         Foreground="{StaticResource TextPrimaryDark}" FontSize="16" Padding="5"/>
                     </StackPanel>
 
-                    <StackPanel Margin="20,0,0,0">
-                        <TextBlock Text="Category:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
-                        <ComboBox Name="cbCategory" Width="200" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16">
-                            <ComboBoxItem>Humanoid</ComboBoxItem>
-                            <ComboBoxItem>Construct</ComboBoxItem>
-                            <ComboBoxItem>Cybernetic</ComboBoxItem>
-                            <ComboBoxItem>Beast</ComboBoxItem>
+                    <!-- Category -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Category:" HorizontalAlignment="Left" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <ComboBox Name="cbCategory" HorizontalAlignment="Stretch"  Background="{StaticResource BackgroundDark}" 
+                          Foreground="{StaticResource BackgroundDark}" FontSize="16" Padding="5">
+                            <ComboBoxItem Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}">Humanoid</ComboBoxItem>
+                            <ComboBoxItem Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}">Construct</ComboBoxItem>
+                            <ComboBoxItem Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}">Cybernetic</ComboBoxItem>
+                            <ComboBoxItem Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}">Beast</ComboBoxItem>
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="Background" Value="{StaticResource BackgroundDark}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryDark}"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource BorderDark}"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsDropDownOpen" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource BackgroundDark}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
                         </ComboBox>
                     </StackPanel>
 
-                    <StackPanel Margin="20,0,0,0">
-                        <TextBlock Text="CR:" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
-                        <TextBox Name="txtCR" Width="60" Background="{StaticResource BackgroundDark}" Foreground="{StaticResource TextPrimaryDark}" FontSize="16"/>
+                    <!-- CR -->
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="CR:" HorizontalAlignment="Left" Foreground="{StaticResource TextPrimaryDark}" Margin="0,0,0,5"/>
+                        <TextBox Name="txtCR" HorizontalAlignment="Stretch"  Background="{StaticResource BackgroundDark}" 
+                         Foreground="{StaticResource TextPrimaryDark}" FontSize="16" Padding="5"/>
                     </StackPanel>
                 </StackPanel>
 
                 <!-- Attacks Section -->
-                <Grid Margin="0,10,0,10">
+                <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!-- Primary Attacks -->
-                    <StackPanel Grid.Column="0" Background="{StaticResource SurfaceDark}" Margin="0,0,10,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,5">
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" Background="{StaticResource SurfaceDark}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,5">
                             <TextBlock Text="Primary Attacks" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryAccent}" VerticalAlignment="Center"/>
                             <Button Content="+" Width="30" Height="30" Margin="10,0,0,0" Background="{StaticResource PrimaryAccent}" Foreground="White" Click="BtnAddPrimaryAttack_Click"/>
                         </StackPanel>
-                        <StackPanel Name="spPrimaryAttacks"/>
+                        <StackPanel Name="spPrimaryAttacks" Margin="0,5,0,0"/>
                     </StackPanel>
 
                     <!-- Bonus Attacks -->
-                    <StackPanel Grid.Column="1" Background="{StaticResource SurfaceDark}" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,5">
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0" Background="{StaticResource SurfaceDark}" >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,5">
                             <TextBlock Text="Bonus Attacks" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryAccent}" VerticalAlignment="Center"/>
                             <Button Content="+" Width="30" Height="30" Margin="10,0,0,0" Background="{StaticResource PrimaryAccent}" Foreground="White" Click="BtnAddBonusAttack_Click"/>
                         </StackPanel>
-                        <StackPanel Name="spBonusAttacks"/>
+                        <StackPanel Name="spBonusAttacks" Margin="0,5,0,0"/>
                     </StackPanel>
                 </Grid>
 
-                <!-- Bottom Buttons -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                    <Button Name="btnSave" Content="Save Unit" Click="BtnSave_Click" Width="100" Background="{StaticResource PrimaryAccent}" Foreground="White"/>
-                    <Button Name="btnDelete" Content="Delete Unit" Click="BtnDelete_Click" Width="100" Background="{StaticResource DeleteRed}" Foreground="White" IsEnabled="False"/>
-                    <Button Name="btnClear" Content="Clear" Click="BtnClear_Click" Width="100"/>
+                <!-- Bottom Buttons: Equal Spacing -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Center" >
+                    <Button Name="btnSave" Content="Save Unit" Click="BtnSave_Click" Width="120" Background="{StaticResource PrimaryAccent}" Foreground="White" Padding="10"/>
+                    <Button Name="btnDelete" Content="Delete Unit" Click="BtnDelete_Click" Width="120" Background="{StaticResource DeleteRed}" Foreground="White" IsEnabled="False" Padding="5"/>
+                    <Button Name="btnClear" Content="Clear" Click="BtnClear_Click" Width="120" Padding="5"/>
                 </StackPanel>
-
             </StackPanel>
         </ScrollViewer>
 

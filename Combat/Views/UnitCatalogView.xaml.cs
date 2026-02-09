@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using Combat.Models;
+using Combat.Services;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Combat.Models;
-using Combat.Services;
+using System.Windows.Media;
 
 namespace Combat.Views
 {
@@ -92,11 +93,13 @@ namespace Combat.Views
 
             var cbTarget = new ComboBox
             {
-                Width = 100,
-                ItemsSource = (TargetType[])System.Enum.GetValues(typeof(TargetType)),
-                SelectedItem = existingAttack?.Target,
-                Background = (System.Windows.Media.Brush)Application.Current.Resources["BackgroundDark"],
-                Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryDark"]
+                Width = 110,
+                Background = (Brush)FindResource("BackgroundDark"),
+                Foreground = (Brush)FindResource("TextPrimaryDark"),
+                BorderBrush = (Brush)FindResource("BorderDark"),
+                ItemsSource = new[] { "Hostile", "Friendly" }, // or keep Enum
+                SelectedIndex = 0,                             // Hostile by default
+                Padding = new Thickness(6, 4, 6, 4)
             };
 
             var btnDelete = new Button
@@ -137,25 +140,41 @@ namespace Combat.Views
             foreach (StackPanel sp in spPrimaryAttacks.Children)
             {
                 dynamic t = sp.Tag;
+
                 if (!string.IsNullOrWhiteSpace(t.TxtName.Text))
+                {
+                    var target = t.CbTarget.SelectedItem is TargetType tt
+                        ? tt
+                        : TargetType.Hostile; // default
+
                     unit.PrimaryAttacks.Add(new Attack
                     {
                         Name = t.TxtName.Text,
-                        Target = (TargetType)t.CbTarget.SelectedItem
+                        Target = target
                     });
+                }
             }
+
 
             // Save Bonus Attacks
             foreach (StackPanel sp in spBonusAttacks.Children)
             {
                 dynamic t = sp.Tag;
+
                 if (!string.IsNullOrWhiteSpace(t.TxtName.Text))
+                {
+                    var target = t.CbTarget.SelectedItem is TargetType tt
+                        ? tt
+                        : TargetType.Hostile; // default
+
                     unit.BonusAttacks.Add(new Attack
                     {
                         Name = t.TxtName.Text,
-                        Target = (TargetType)t.CbTarget.SelectedItem
+                        Target = target
                     });
+                }
             }
+
 
             _service.SaveUnit(unit);
             LoadUnits();

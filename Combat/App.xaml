@@ -19,6 +19,24 @@
         <SolidColorBrush x:Key="DeleteRed" Color="#FF4444"/>
         <SolidColorBrush x:Key="PanelDark" Color="#1a2e21"/>
 
+        <!-- Hacker / terminal style colors -->
+        <SolidColorBrush x:Key="LogDefault"        Color="#e0ffe0" />
+        <!-- light green -->
+        <SolidColorBrush x:Key="LogEnemyAttack"    Color="#00ff41" />
+        <!-- bright matrix green -->
+        <SolidColorBrush x:Key="LogPlayerAction"   Color="#aaffaa" />
+        <!-- softer green -->
+        <SolidColorBrush x:Key="LogTXE"            Color="#ffff00" />
+        <!-- yellow for TXE / rewards -->
+        <SolidColorBrush x:Key="LogWarning"        Color="#ffaa00" />
+        <!-- orange for warnings -->
+        <SolidColorBrush x:Key="LogCritical"       Color="#ff4444" />
+        <!-- red for defeat / critical -->
+        <SolidColorBrush x:Key="LogNameEnemy"      Color="#00ff9d" />
+        <!-- cyan-ish for enemy names -->
+        <SolidColorBrush x:Key="LogNamePlayer"     Color="#55ff55" />
+        <!-- bright green for party names -->
+
     </Application.Resources>
     
 

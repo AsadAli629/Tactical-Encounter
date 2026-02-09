@@ -156,6 +156,15 @@
                             Orientation="Horizontal" 
                             VerticalAlignment="Center"
                             Margin="0,0,8,0">
+
+                    <CheckBox x:Name="chkAlwaysOnTop"
+                      Content="Always on Top"
+                      Foreground="{StaticResource TextPrimaryDark}"
+                      VerticalAlignment="Center"
+                      Margin="0,0,16,0"
+                      Checked="chkAlwaysOnTop_Checked"
+                      Unchecked="chkAlwaysOnTop_Unchecked"
+                      IsChecked="False"/>
                     <Button Style="{StaticResource IconButtonStyle}"
                             x:Name="MinimizeButton"
                             Click="MinimizeButton_Click">
